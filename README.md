@@ -18,6 +18,11 @@ npm install espionage
 Espionage exports two functions for creating spies.
 
 ## `espionage.spyOn`
+
+```js
+spyOn(fn: Function) => Spy
+```
+
 Accepts a function. Returns a spy. When called, the returned spy returns the same value as the given function.
 ```
 var espionage = require('espionage');
@@ -32,6 +37,11 @@ spy(2); // returns 7
 ```
 
 ## `espionage.createSpy`
+
+```js
+createSpy() => Spy
+```
+
 Doesn't accept arguments. Returns a spy. The spy returns undefined.
 ```
 var espionage = require('espionage');
@@ -44,7 +54,22 @@ spy(); // returns undefined
 ## Spies
 The functions `espionage.spyOn()` and `espionage.createSpy` both return a spy. Spies have these methods:
 
+```js
+interface Spy {
+  (...args: Any[]) => Any,
+  callCount() => Number,
+  wasCalled() => Boolean,
+  wasCalledWith(arg: Any) => Boolean,
+  returned(arg: Any) => Boolean
+}
+```
+
 ### `spy.callCount`
+
+```js
+Spy.callCount() => Number
+```
+
 Doesn't accept arguments. Returns the number of times the spy has been called.
 ```
 var spy = espionage.createSpy();
@@ -56,6 +81,11 @@ spy.callCount(); // returns 2
 ```
 
 ### `spy.wasCalled`
+
+```js
+Spy.wasCalled() => Boolean
+```
+
 Doesn't accept arguments. Returns a boolean indicating if the spy has been called.
 ```
 var spy = espionage.createSpy();
@@ -66,7 +96,13 @@ spy.wasCalled(); // returns true
 ```
 
 ### `spy.wasCalledWith`
+
+```js
+Spy.wasCalledWith(arg: Any) => Boolean
+```
+
 Accepts a single argument. Returns a boolean indicating if the spy has been called with the given argument.
+
 ```
 function add2(num) {
   return num + 2;
@@ -80,7 +116,13 @@ spy.wasCalledWith(2); // returns true
 ```
 
 ### `spy.returned`
-Accepts a single argument. Returns a boolean indicating if the spy has been called with the given argument.
+
+```js
+Spy.returned(arg: Any) => Boolean
+```
+
+Accepts a single argument. Returns a boolean indicating if the spy returned the given argument.
+
 ```
 function add2(num) {
   return num + 2;
